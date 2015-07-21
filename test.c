@@ -2,28 +2,31 @@
 #include <stdlib.h>
 #include "string.h"
 #include "node.h"
+#include "stack.h"
+#include "queue.h"
+
+extern QueueNode *first;
+extern QueueNode *last;
 
 int main(int argc, char *argv[]) {
-	int num1, num2;
-	char *buf = (char*)calloc(MAX_SIZE, sizeof(char));
-	printf("Enter number 1: ");
-	fgets(buf, MAX_SIZE, stdin);
-	trim(buf);
-	num1 = my_atoi(buf);
+	enqueue(5);
+	enqueue(4);
+	enqueue(3);
+	enqueue(2);
+	enqueue(1);
+	displayQueue();
 
-	printf("Enter number 2: ");
-	fgets(buf, MAX_SIZE, stdin);
-	trim(buf);
-	num2 = my_atoi(buf);
+	dequeue();
+	dequeue();
+	displayQueue();
 
-	Node *head1 = list_from_num(num1);
-	Node *head2 = list_from_num(num2);
+	dequeue();
+	dequeue();
+	dequeue();
+	displayQueue();
 
-	Node *sum = sum_lists_reverse(head1, head2);
-
-	print_list(head1);
-	print_list(head2);
-	print_list(sum);
+	dequeue();
+	displayQueue();
 
 	return 0;
 }
