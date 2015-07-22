@@ -1,32 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "string.h"
-#include "node.h"
-#include "stack.h"
-#include "queue.h"
+#include "tree.h"
 
-extern QueueNode *first;
-extern QueueNode *last;
+extern TreeNode *root;
 
 int main(int argc, char *argv[]) {
-	enqueue(5);
-	enqueue(4);
-	enqueue(3);
-	enqueue(2);
-	enqueue(1);
-	displayQueue();
+	insertTree(4);
+	displayTree();
 
-	dequeue();
-	dequeue();
-	displayQueue();
+	insertTree(2);
+	insertTree(6);
+	displayTree();
 
-	dequeue();
-	dequeue();
-	dequeue();
-	displayQueue();
+	insertTree(1);
+	insertTree(3);
+	insertTree(5);
+	insertTree(10);
+	displayTree();
 
-	dequeue();
-	displayQueue();
+	insertTree(20);
+	displayTree();
 
 	return 0;
 }

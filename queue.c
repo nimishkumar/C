@@ -42,7 +42,7 @@ void displayQueue(void) {
 	while(curr) {
 		printf("%d", curr->val);
 		if(curr->next)
-			printf("->");
+			printf("<-");
 		curr = curr->next;
 	}
 	printf("\n");
