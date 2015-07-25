@@ -1,10 +1,30 @@
 #include "string.h"
+#include <stdlib.h>
 
 int my_strlen(char *str) {
 	int i=0;
 	while(str[i])
 		i++;
 	return i;
+}
+
+int my_strcmp(char *str1, char *str2) {
+	int i=0;
+	int j=0;
+
+	while(str1[i]!='\0' && str2[j]!='\0') {
+		if(str1[i]<str2[j])
+			return -1;
+		if(str1[i]>str2[j])
+			return 1;
+		i++;
+		j++;
+	}
+	if(str1[i]!='\0')
+		return 1;
+	if(str2[j]!='\0')
+		return -1;
+	return 0;
 }
 
 int trim(char *str) {
@@ -41,7 +61,7 @@ int indexOf(char *str, char c) {
 	return -1;
 }
 
-int reverse(char *str) {
+void reverse(char *str) {
 	int i;
 	int len = my_strlen(str);
 	for(i=0; i<len/2; i++) {
@@ -49,7 +69,7 @@ int reverse(char *str) {
 		str[len-i-1] = str[i] ^ str[len-i-1];
 		str[i] = str[i] ^ str[len-i-1];
 	}
-	return 0;
+	return;
 }
 
 int isSubstring(char *str, char *substr) {
@@ -74,9 +94,45 @@ int isSubstring(char *str, char *substr) {
 int my_atoi(char *str) {
 	int ret = 0;
 	int i=0;
+	int sign = 1;
+	if(str[i]=='-') {
+		sign = -1;
+		i++;
+	}
 	while(str[i]) {
+		if(str[i]<0x30 || str[i]>0x39)
+			return 0;
 		ret = ret*10 + (str[i]-'0');
 		i++;
 	}
-	return ret;
+	return ret*sign;
+}
+
+void toUpper(char *str) {
+	int i=0;
+	while(str[i]) {
+		if(str[i]>=97 && str[i]<=124)
+			str[i] -= 32;
+		i++;
+	}
+}
+
+void toLower(char *str) {
+	int i=0;
+	while(str[i]) {
+		if(str[i]>=65 && str[i]<=92)
+			str[i] += 32;
+		i++;
+	}
+}
+
+char* my_strcpy(char *str) {
+	int i;
+	int len = my_strlen(str);
+	char *newStr = (char*)calloc(len+1,sizeof(char));
+
+	for(i=0; i<len; i++) {
+		newStr[i] = str[i];
+	}
+	return newStr;
 }

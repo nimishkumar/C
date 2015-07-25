@@ -13,4 +13,8 @@ void insertTree(int val);
 
 int removeTree(int val);
 
+int lookupTree(int val);
+
+int sizeTree(void);
+
 void displayTree(void);
