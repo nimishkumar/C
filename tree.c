@@ -5,18 +5,14 @@
 TreeNode *root = NULL;
 
 TreeNode* findMin(TreeNode *node) {
-	if(!node)
-		return NULL;
-	if(node->left)
-		return findMin(node->left);
+	while(node->left!=NULL)
+		node = node->left;
 	return node;
 }
 
 TreeNode* findMax(TreeNode *node) {
-	if(!node)
-		return NULL;
-	if(node->right)
-		return findMax(node->right);
+	while(node->left!=NULL)
+		node = node->left;
 	return node;
 }
 
@@ -51,7 +47,39 @@ void insertTree(int val) {
 	root = insert(root, newNode);
 }
 
+TreeNode* removeHelper(TreeNode *node, int val) {
+	TreeNode *temp;
+	if(node==NULL) {
+		return node;
+	}
+	else if(val < node->val) {
+		node->left = removeHelper(node->left, val);
+	}
+	else if(val > node->val) {
+		node->right = removeHelper(node->right, val);
+	}
+	else {
+		if(node->left==NULL) {
+			temp = node->right;
+			free(node);
+			return temp;
+		}
+		else if(node->right==NULL) {
+			temp = node->left;
+			free(node);
+			return temp;
+		}
+		else {
+			temp = findMin(node->right);
+			node->val = temp->val;
+			node->right = removeHelper(node->right, temp->val);
+		}
+	}
+	return node;
+}
+
 int removeTree(int val) {
+	root = removeHelper(root, val);
 	return 0;
 }
 
@@ -79,12 +107,15 @@ int sizeTree(void) {
 }
 
 void displayLevel(TreeNode *node, int depth) {
-	if(!node)
-		return;
 	if(depth==0) {
-		printf("%d ", node->val);
+		if(!node)
+			printf("  ");
+		else
+			printf("%d ", node->val);
 		return;
 	}
+	if(!node)
+		return;
 	displayLevel(node->left, depth-1);
 	displayLevel(node->right, depth-1);
 }
